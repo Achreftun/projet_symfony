@@ -18,53 +18,40 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1 class="mb-5">Panier</h1>
+		<h1 class="mb-5">Commandes</h1>
 
 		<table class="table mb-5">
 			<thead class="table-dark">
 				<tr>
-					<td>Désignation</td>
-					<td>Prix unitaire
-					</td>
-					<td>Quantité commandée
-					</td>
-					<td>Action
+					<td>Date commande</td>
+					<td>Nombre d'articles
 					</td>
 					<td>Total
 					</td>
 				</tr>
 			</thead>
 
-			{% if lignes %}
+			{% if commandes %}
 				<tbody>
 
-					{% set total = 0 %}
-					{% for ligne in lignes %}
+
+					{% for commande in commandes %}
 						<tr>
-							<td>{{ ligne.article.designation }}</td>
-							<td>
-								{{ ligne.article.prixUnitaire }}</td>
-							<td>
-								{{ ligne.quantiteCommandee }}</td>
-							<td>
-								<a href="/panier/{{ligne.article.id}}/supprimer">Supprimer</a>
-							</td>
-							<td>
+							<td>{{ commande.dateCommande.format('d/m/Y') }}</td>
+							{% set total = 0 %}
+							{% for ligne in commande.ligneCommandes %}
 								{% set totalArticle = ligne.quantiteCommandee * ligne.article.prixUnitaire %}
 								{% set total = total + totalArticle %}
-								{{ totalArticle }}
+							{% endfor %}
+							<td>
+								{{ commande.ligneCommandes | length }}
+							</td>
+							<td>
+								{{ total }}
 							</td>
 						</tr>
 					{% endfor %}
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							<b>{{ total }}</b>
-						</td>
-					</tr>
+
 				</tbody>
 				<tbody>
 				{% else %}
@@ -77,9 +64,7 @@
 				<div class="col-3">
 					<a href="/">Continuer vos achats</a>
 				</div>
-				<div class="offset-6 col-3">
-					<a href="/commande">Passer la commande</a>
-				</div>
+
 			</div>
 		</div>
 

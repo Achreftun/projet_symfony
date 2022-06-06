@@ -24,7 +24,7 @@
 			{% for article in articles %}
 				<li>{{ article.designation}}
 					{{ article.prixUnitaire }}
-					<a href="{{ url('app_panier', { 'id': article.id })}}">Ajouter</a>
+					<a href="/panier/{{article.id}}">Ajouter</a>
 				</li>
 			{% endfor %}
 		</ul>

@@ -16,10 +16,10 @@ class LigneCommande
     #[ORM\Column(type: 'integer', nullable: true)]
     private $quantiteCommandee;
 
-    #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'ligneCommandes')]
+    #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'ligneCommandes', cascade: ['persist'])]
     private $article;
 
-    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'ligneCommandes')]
+    #[ORM\ManyToOne(targetEntity: Commande::class, inversedBy: 'ligneCommandes', cascade: ['persist'])]
     private $commande;
 
     public function getId(): ?int

@@ -18,7 +18,7 @@ class Commande
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateCommande;
 
-    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: LigneCommande::class)]
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: LigneCommande::class, cascade: ['persist'])]
     private $ligneCommandes;
 
     public function __construct()
