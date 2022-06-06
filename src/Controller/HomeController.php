@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home_empty')]
     public function index(ArticleRepository $rep): Response
     {
-        $articles = $rep->findAll();
+        $articles = $rep->findByQuantityPositive();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'articles' => $articles

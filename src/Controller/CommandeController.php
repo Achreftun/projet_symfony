@@ -29,7 +29,7 @@ class CommandeController extends AbstractController
     {
         $lignes = $session->get('lignes');
         $found = false;
-        if ($lignes) {
+        if (!$lignes) {
             $ligne = new LigneCommande();
             $ligne->setArticle($article);
             $ligne->setQuantiteCommandee(1);
@@ -72,6 +72,7 @@ class CommandeController extends AbstractController
         $commande->setDateCommande(new \DateTime('now', $dateTimeZone));
         foreach ($lignes as $l) {
             $article = $em->getRepository(Article::class)->find($l->getArticle()->getId());
+            $article->setQuantite($article->getQuantite() - $l->getQuantiteCommandee());
             $l->setArticle($article);
             $commande->addLigneCommande($l);
         }
